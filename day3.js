@@ -2,40 +2,24 @@
 
 const raw = document.querySelector("body > pre").innerHTML.trim();
 
-const convertPriority = (alphabet) => {
-	const charCodeAt = alphabet.charCodeAt(0);
-	if (charCodeAt >= 65 && charCodeAt <= 90) {
-		return charCodeAt - 65 + 27; // big alphabet
-	}
-	if (charCodeAt >= 97 && charCodeAt <= 122) {
-		return charCodeAt - 96; // small alphabet
-	}
+const convertPriority = (alphabet) =>
+	alphabet.charCodeAt(0) <= 90
+		? alphabet.charCodeAt(0) - 65 + 27
+		: alphabet.charCodeAt(0) - 96;
 
-	console.error("Unexpected value:", a, charCodeAt);
-};
-
-const splitItems = (text) => [
-	text.substring(0, text.length / 2),
-	text.substring(text.length / 2, text.length),
+const divideArray = (array) => [
+	array.slice(0, array.length / 2),
+	array.slice(array.length / 2, array.length),
 ];
 
-const getItemType = (text) => {
-	const [ text1, text2 ] = splitItems(text);
-	const text2Splited = text2.split("");
-	return [
-		...new Set(text1.split("").filter((a) => text2Splited.includes(a))),
-	][0];
-};
-
-const getItemTypeFromArr = (textArr /* Should be 3 items */) => {
-	return [
+const getItemTypeFromArr = (textArr) =>
+	[
 		...new Set(
 			textArr[0].filter(
-				(a) => textArr[1].includes(a) && textArr[2].includes(a),
+				(a) => textArr.map((b) => b.includes(a)).filter((a) => !a).length === 0,
 			),
 		),
 	][0];
-};
 
 const groupByThree = (array) => {
 	const result = [];
@@ -48,12 +32,14 @@ const groupByThree = (array) => {
 // Part one
 raw
 	.split("\n")
-	.map((a) => getItemType(a))
-	.map((a) => convertPriority(a))
+	.map((a) => a.split(""))
+	.map(divideArray)
+	.map(getItemTypeFromArr)
+	.map(convertPriority)
 	.reduce((a, b) => a + b);
 
 // Part two
 groupByThree(raw.split("\n").map((a) => a.split("")))
-	.map((a) => getItemTypeFromArr(a))
+	.map(getItemTypeFromArr)
 	.map(convertPriority)
 	.reduce((a, b) => a + b);
