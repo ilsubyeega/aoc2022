@@ -28,7 +28,7 @@ const moves = datas[1]
 	.trim()
 	.split("\n")
 	.map((a) => moveRegex.exec(a))
-	.map((a) => [parseInt(a[1]), parseInt(a[2]), parseInt(a[3])]);
+	.map((a) => [a[1], a[2], a[3]].map(Number));
 
 // part one
 let partOne = JSON.parse(JSON.stringify(table));
@@ -46,10 +46,10 @@ let partTwo = JSON.parse(JSON.stringify(table));
 
 moves.forEach((a) => {
 	const [times, from, to] = a;
-	const queues = [];
+	const queue = [];
 	for (let i = 0; i < times; i++) {
-		queues.push(partTwo[from - 1].pop());
+		queue.push(partTwo[from - 1].pop());
 	}
-	queues.reverse().forEach((a) => partTwo[to - 1].push(a));
+	queue.reverse().forEach((a) => partTwo[to - 1].push(a));
 });
 console.log(partTwo.map((a) => a[a.length - 1]).join(""));
