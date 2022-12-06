@@ -25,6 +25,7 @@ console.log(
 		.map((a) => partOne(a[0], a[1]))
 		.reduce((a, b) => a + b),
 );
+
 const partTwo = (opponentChar, resultChar) => {
 	// 0: Rock, 1: Paper, 2: Scissors
 	const opponent = opponentChar.charCodeAt() - 65;

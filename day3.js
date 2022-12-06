@@ -12,7 +12,6 @@ const divideArray = (array) => [
 	array.slice(array.length / 2, array.length),
 ];
 
-
 const getItemTypeFromArr = (textArrays) =>
 	textArrays[0].find((character) =>
 		textArrays.every((item) => item.includes(character)),
@@ -27,16 +26,20 @@ const groupByThree = (array) => {
 };
 
 // Part one
-raw
-	.split("\n")
-	.map((a) => a.split(""))
-	.map(divideArray)
-	.map(getItemTypeFromArr)
-	.map(convertPriority)
-	.reduce((a, b) => a + b);
+console.log(
+	raw
+		.split("\n")
+		.map((a) => a.split(""))
+		.map(divideArray)
+		.map(getItemTypeFromArr)
+		.map(convertPriority)
+		.reduce((a, b) => a + b),
+);
 
 // Part two
-groupByThree(raw.split("\n").map((a) => a.split("")))
-	.map(getItemTypeFromArr)
-	.map(convertPriority)
-	.reduce((a, b) => a + b);
+console.log(
+	groupByThree(raw.split("\n").map((a) => a.split("")))
+		.map(getItemTypeFromArr)
+		.map(convertPriority)
+		.reduce((a, b) => a + b),
+);
