@@ -12,14 +12,11 @@ const divideArray = (array) => [
 	array.slice(array.length / 2, array.length),
 ];
 
-const getItemTypeFromArr = (textArr) =>
-	[
-		...new Set(
-			textArr[0].filter(
-				(a) => textArr.map((b) => b.includes(a)).filter((a) => !a).length === 0,
-			),
-		),
-	][0];
+
+const getItemTypeFromArr = (textArrays) =>
+	textArrays[0].find((character) =>
+		textArrays.every((item) => item.includes(character)),
+	);
 
 const groupByThree = (array) => {
 	const result = [];
